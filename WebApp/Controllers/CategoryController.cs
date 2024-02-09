@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Controllers
 {
@@ -10,3 +10,4 @@ namespace WebApp.Controllers
         }
     }
 }
+*/
