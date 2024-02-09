@@ -1,0 +1,63 @@
+﻿@model List<WebApp.Models.Domain.Product>
+<div class="row">
+    @if (Model != null)
+    {
+
+        @foreach (var item in Model)
+        {
+
+            <div class="col-md-4 col-xs-6 border-primary mb-3 py-5">
+                <div class="card mb-2" style="max-width: 440px ;">
+                    <div class="row g-0">
+                        <div class="col-md-12">
+                            <div class="card-header text-black bg-antiquewhite">
+                                <p class="card-text">
+                                    <h5 class="card-title" id="ProductName">
+                                        @item.ProductName
+
+
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <img src="/image/@item.ProductImage" width="100%" height="220em" alt="@item.ProductName">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card-body">
+                                <p class="card-text">@item.ProductDescription</p>
+                                <p class="card-text"><b>Price: </b>@item.ProductPrice</p>
+
+                                <p class="card-text"><b> Sale Ends On: </b>@item.ProductCreatedAt.ToString("dd MMM yy")</p>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="card-footer ">
+                                <p class="card-text">
+                                    <a class="btn btn-dark float-left" asp-action="Details" asp-route-id="@item.ProductId">
+                                        <i class="bi bi-eye-fill"></i> Show Details
+                                    </a>
+                                    <a class="btn btn-danger float-right" asp-controller="Cart" asp-action="AddToFavourite" asp-route-id="@item.ProductId">
+                                        <i class="bi bi-eye-fill"></i> Add to Favouite
+                                    </a>
+                                    <a class="btn btn-success text-white" )
+                                       asp-controller="Orders"
+                                       asp-action="AddItemToShoppingCart"
+                                       asp-route-id="@item.ProductId">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart (Price @item.ProductPrice.ToString("c"))
+                                    </a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+
+    }
+</div>

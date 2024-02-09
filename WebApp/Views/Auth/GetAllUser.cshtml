@@ -1,0 +1,192 @@
+﻿@model IEnumerable<WebApp.Models.Domain.UserModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<script src="https://fonts.googleapis.com/css2?family=Mukta:wght@400;500;600;700&display=swap"></script>
+<head>
+    <style>
+        body {
+            background-color: antiquewhite;
+            color: black;
+        }
+
+        
+
+
+
+/* start: Global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: 'Mukta', sans-serif;
+    background-color: #f5f5f5;
+}
+.container {
+    max-width: 991px;
+    margin: 0 auto;
+    padding: 10px 10px;
+}
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background-color: #fff;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #bbb;
+}
+/* end: Global */
+
+
+
+/* start: Table */
+
+thead {
+    background-color: #222;
+    color: #fff;
+    position:center;
+    top: 0;
+}
+td,
+th {
+    padding: 8px 16px;
+    text-align: left;
+}
+th {
+    text-transform: uppercase;
+}
+td {
+    font-weight: 600;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+}
+tr:hover td {
+    background-color: #f9f9f9;
+}
+.user {
+    display: flex;
+    align-items: center;
+}
+.user-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 16px;
+}
+.user-email {
+    font-weight: 400;
+    color: #555;
+}
+/* end: Table */
+    </style>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top d-flex justify-content-between">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Admin Logged In</a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+               
+                <li class="nav-item">
+
+
+                        <a class="btn btn-dark " asp-action="Register" asp-controller="Auth" style="mb-3 float-end">Add New User</a>
+                       
+
+
+                </li>
+                <a class="btn btn-danger  " asp-controller="Admin" asp-action="AdminHome">Back to Home</a>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+
+
+@if (Model.Any())
+{
+
+    <div class=" container pt-5">
+       
+
+            <div class="table-wrapper">
+                <table >
+                    <thead>
+                        <tr >
+
+                            <th scope="col">Unique Id</th>
+                            <th scope="col">Name</th>
+                           
+                            <th scope="col">Role</th>
+                            <th scope="col">Phone no</th>
+                            <th scope="col">Password</th>
+                            <th scope="col">CreatedAt</th>
+                           <th scope="col">IsActive</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var x in Model)
+                        {
+                        @if (x.Role == "User")
+                        {
+                            <tr>
+                                <td>@x.Id</td>
+                                <td>
+                                    <div class="user">
+                                        <img class="user-image" src="/image/IconProfile.png" alt="" />
+                                        <div class="user-info">
+                                            <div class="user-name">
+                                                @x.Name
+                                            </div>
+                                            <div class="user-email">
+                                                @x.Email
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td>@x.Role</td>
+                                <td>@x.PhoneNo</td>
+
+                                <td>@x.UserPassword</td>
+                                <td>@x.CreatedAt</td>
+                                <td>@x.IsActive</td>
+                                <td>
+                                    @if(x.IsActive)
+                                    {
+
+                                        <a class="btn btn-dark" asp-action="UpdateUser" asp-controller="Admin" asp-route-id="@x.Id">Edit</a>
+                                        <a class="btn btn-danger" asp-action="DeactiveUser" asp-controller="Admin" asp-route-id="@x.Id">Deactive</a>
+                                    }
+                                    else
+                                    {
+                                        <a class="btn btn-dark" asp-action="UpdateUser" asp-controller="Admin" asp-route-id="@x.Id">Edit</a>
+                                        <a class="btn btn-success" asp-action="ActivateUser" asp-controller="Admin" asp-route-id="@x.Id">Active</a>
+                                    }
+
+                                    @*  <a class="btn btn-danger" asp-action="DeleteProduct" asp-controller="Authenication" asp-route-id="@x.Id">Deactive</a> *@
+                                </td>
+                            </tr>
+                        }
+                    }
+                    </tbody>
+                </table>
+            </div>
+        
+                      
+    </div>
+}

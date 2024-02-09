@@ -1,0 +1,43 @@
+﻿@model List<WebApp.Models.Dto.CategoryProductDto>
+
+
+@{
+    ViewData["Title"] = "Product";
+}
+<html>
+
+<head>
+    <style>
+        body {
+            background-color: antiquewhite;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <h3 class="" style="text-align:center; margin-top:10%;">All Products</h3>
+
+
+    <div class="table-responsive">
+        <table id="myTable" class="table text-start align-middle table-bordered table-hover mb-0">
+            <thead>
+                <tr class="text-dark">
+
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    @* <th scope="col">Is Available</th>
+                    <th scope="col">Is Trending</th> *@
+                    <th>Category Name</th>
+                    <th>CreatedAt</th>
+                    @*  <th scope="col">Action</th> *@
+                </tr>
+            </thead>
+
+        </table>
+    </div>
+    @section Scripts {
+        <script src="~/js/product.js"></script>
+    }
+</body>
+</html>

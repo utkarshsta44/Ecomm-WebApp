@@ -1,0 +1,124 @@
+﻿@model WebApp.Models.Domain.Product
+
+@{
+    var myCategoryId = TempData["CategoryId"];
+    ViewData["Title"] = "AddProduct";
+    var categoryList = ViewBag.CategoryList as List<WebApp.Models.Domain.Category>;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.css">
+   <style>
+        body {
+            background-color: antiquewhite;
+            color: black;
+        }
+
+        .table {
+            background-color: white;
+            color: black;
+        }
+   </style>
+</head>
+<body>
+
+                  <div class=" container py-3 ">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <form asp-action="AddProduct" method="post" enctype="multipart/form-data" asp-controller="Product" class="p-5">
+                           <div class="d-flex justify-content-between"><h2>Add Product</h2>
+            <a class="btn btn-danger  " asp-controller="Admin" asp-action="AdminHome">Back to Home</a>
+            </div>
+            <div class="form-group">
+                              
+                <select class="form-select mb-3" aria-label="Default select example" asp-for="ProductCategoryId" required>
+                    <option disabled selected value="">Select a Category</option>
+                    @if (categoryList != null)
+                    {
+                        foreach (var x in categoryList)
+                        {
+                            @*<option value="@x.CategoryId" selected="@(x.CategoryId == ViewBag.SelectedCategory)">@x.CategoryName</option> *@
+                            @if (Convert.ToInt32(myCategoryId) == 0)
+                            {
+                                <option value="@x.CategoryId">@x.CategoryName</option>
+                            }
+
+                            else if (x.CategoryId == Convert.ToInt32(myCategoryId))
+                            {
+                                <option value="@x.CategoryId" selected>@x.CategoryName</option>
+                            }
+
+                            else
+                            {
+                                <option value="@x.CategoryId">@x.CategoryName</option>
+                            }
+                        }
+                    }
+                </select>
+
+
+                            </div>
+                            <div class="form-group">
+                <input asp-for="ProductName" class="form-control" type="text" placeholder="Product Name" required />
+                                <span asp-validation-for="ProductName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                <input asp-for="ProductDescription" class="form-control" type="text" placeholder="Product Description" required />
+                                <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                <input asp-for="ProductPrice" class="form-control" type="number" placeholder="Product Price" required />
+                                <span asp-validation-for="ProductPrice" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                <input asp-for="ProductImage" class="form-control" type="file" id="ChooseImage" placeholder="Product Image" />
+                                <span asp-validation-for="ProductImage" class="text-danger"></span>
+
+                            </div>
+                            <div class="col-md-4 offset-4 text-center">
+                <img id="PreviewImage" src="https://cdn.iconscout.com/icon/free/png-512/free-image-preview-2715690-2265750.png?f=webp&w=512" width="100%" height="100em" id="ImageUrlPreview" />
+                             </div>
+                            @* <div class="form-group">
+                            <label asp-for="IsAvailable"></label>
+                            <input asp-for="IsAvailable" type="checkbox" />
+                            <span asp-validation-for="IsAvailable" class="text-danger"></span>
+                            </div> *@
+                            @*  <div class="form-group">
+                            <label asp-for="IsTrending"></label>
+                            <input asp-for="IsTrending" type="checkbox" />
+                            <span asp-validation-for="IsTrending" class="text-danger"></span>
+                            </div> *@
+                            <button type="submit" class="btn btn-dark">Add Product</button>
+                        </form>
+                    </div>
+
+
+
+
+
+
+    @section Scripts
+    {
+        <script>
+            $(document).ready(function () {
+                $('#ChooseImage').change(function (e) {
+                    var url = $('#ChooseImage').val()
+                    var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase()
+                    if (ChooseImage.files && ChooseImage.files[0] && (ext == "gif" || ext == "jpg" || ext == "jfif" || ext == "png" || ext == "bmp")) {
+                        var reader = new FileReader()
+                        reader.onload = function () {
+                            var output = document.getElementById('PreviewImage');
+                            output.src = reader.result
+                        }
+                        reader.readAsDataURL(e.target.files[0])
+                    }
+                });
+            });
+        </script>
+    }
+
+</body>
+</html>
